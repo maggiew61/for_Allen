@@ -1,0 +1,321 @@
+// @import "compass"
+// @import "compass/functions"
+
+
+*
+  margin: 0
+  padding: 0
+  list-style: none
+  font-size: 1em
+
+/* Scroll bar */
+::-webkit-scrollbar-track
+  background-color: #dee1e4
+  cursor: pointer
+  border-radius: 2px
+
+::-webkit-scrollbar
+  width: 4px
+  cursor: pointer
+  background-color: #dee1e4
+
+::-webkit-scrollbar-thumb
+  background-color: #ccc
+  border-radius: 2px
+
+
+#app
+  // font-family: 'Microsoft YaHei','Microsoft JhengHei','Avenir', Helvetica, Arial, sans-serif
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+
+.text-right
+  text-align: right
+.hide
+  display: none !important
+.not-allowed
+  cursor: not-allowed
+  // background: rgba(255, 255 ,255 ,.5)
+  position: absolute
+  z-index: 1
+  top: 0
+  bottom: 0
+  left: 0
+  right: 0
+
+
+.errorStatus
+  background: #efefef
+  padding: 5px
+  font-size: .9rem
+  margin: 5px 0
+
+.alert-place
+  display: none
+  margin: 10px 0
+.alert-style
+  transition: .4s
+  border-radius: 2px
+  padding: 6px 16px
+  color: #fff
+  background: #e46868
+  border: none
+  outline: none
+  box-shadow: none
+  text-decoration: none
+  display: inline-block
+  letter-spacing: 1px
+
+.input-group
+  margin: 2px 0
+  position: relative
+  min-height: 48px
+  margin-bottom: 32px
+.input-label
+  position: absolute
+  padding: 9px 2px
+  top: 0
+  z-index: 1
+  transition: .4s
+  color: #244c47
+  &.active
+    top: -30px
+    font-size: .95em
+.input-style
+  margin-top: 2px
+  padding: 9px 2px
+  min-width: 150px
+  font-size: 1em
+  border: none
+  border-bottom: 2px solid #84bdb6
+  background: #fff
+  width: 100%
+  color: #559089
+  &.disabled
+    color: #a2a2a2
+    border-bottom: 2px solid #b7b7b7
+  &.alert
+    border-bottom: 2px solid #e46868
+  &:focus
+    outline: none
+    box-shadow: none
+    + .input-label
+      top: -30px
+      font-size: .95em
+.input-alert-style
+  visibility: hidden
+  opacity: 0
+  font-size: .95em
+  &.show
+    visibility: visible
+    opacity: 1
+  &.active
+    visibility: visible
+    opacity: 1
+    color: #e46868
+
+.Btn
+  padding: 6px 16px
+  background-color: #28b6bd
+  border: none
+  outline: none
+  box-shadow: none
+  text-decoration: none
+  border-radius: 2px
+  color: #fff
+  display: inline-block
+  letter-spacing: 1px
+  transition: .2s
+  border: 1px solid transparent
+  margin: 1px
+  cursor: pointer
+  &:hover, &.on
+    color: #fff
+    background-color: #23868c
+    text-decoration: none
+    border: 1px solid transparent
+  &:focus ,&:visited
+    color: #fff
+    text-decoration: none
+    outline: none
+    border: 1px solid transparent
+  &-sm
+    padding: 3px 8px
+  &Wrap
+    display: block
+    margin: 2px
+    padding: 2px
+    position: relative
+    &-center
+       text-align: center
+  &-border
+    background-color: transparent
+    color: #28b6bd
+    border: 1px solid #28b6bd
+    &:hover,&:focus ,&:visited ,&.on
+      color: #fff
+      background-color: #23868c
+      text-decoration: none
+      border: 1px solid #23868c
+    &.active
+      color: #fff
+      background-color: #ffab2e
+      text-decoration: none
+      border: 1px solid #ffab2e
+
+
+// select 2
+.selectBlock
+  box-sizing: border-box
+  border: transparent
+  vertical-align: middle
+  display: inline-flex
+  justify-content: center
+  align-items: center
+  flex-wrap: nowrap
+
+ 
+// vue transition
+.fade-enter-active, .fade-leave-active
+  transition: opacity .5s
+
+.fade-enter, .fade-leave-to
+  opacity: 0
+
+.slideDown-enter-active,
+.slideInDown,
+.slideDown-leave-active,
+.slideOutDown
+  animation-duration: 1s
+  animation-fill-mode: both
+
+.slideDown-enter-active,
+.slideInDown
+  animation-name: slideInDown
+
+.slideDown-leave-active,
+.slideOutDown
+  animation-name: slideOutDown
+
+@keyframes slideInDown
+  from
+    transform: translate3d(0, -100%, 0)
+    visibility: visible
+  to
+    transform: translate3d(0, 0, 0)
+
+@keyframes slideOutDown
+  from
+    transform: translate3d(0, 0, 0)
+  to
+    visibility: hidden
+    transform: translate3d(0, 100%, 0)
+
+
+@mixin vh() 
+  border: 0
+  clip: rect(0 0 0 0)
+  height: 1px
+  margin: -1px
+  overflow: hidden
+  padding: 0
+  position: absolute
+  width: 1px
+
+// custom checkbox/radios
+// $inputHeight: 12px
+// $inputWidth: 12px
+// $inputBorderWidth: 2px
+// $inputActiveScale: 4px // optimized for even numbers
+// $thecolor: #4a4d56
+// $boxbordercolor: #7c8686
+
+// input
+//   &[type="checkbox"], &[type="radio"]
+//     @include vh()
+//   &[type="checkbox"]
+//     &:focus + label:before , &:hover + label:before
+//       border-color: $boxbordercolor
+//   &[type="radio"]
+//     &:focus+label:before , &:hover+label:before
+//       border-color: $boxbordercolor
+//   &[type="checkbox"]:active + label:before, &[type="radio"]:active + label:before
+//     transition-duration: 0
+//     filter: brightness(0.2)
+//   &[type="checkbox"] + label, &[type="radio"] + label
+//     position: relative
+//     // padding: 10px
+//     padding-left: 1.6em
+//     vertical-align: middle
+//     user-select: none
+//     cursor: pointer
+//   &[type="checkbox"] + label:before, &[type="radio"] + label:before
+//     box-sizing: content-box
+//     content: ''
+//     color: $thecolor
+//     position: absolute
+//     top: 50%
+//     left: 0
+//     width: $inputWidth
+//     height: $inputHeight
+//     margin-top: -($inputHeight/2 + $inputBorderWidth)
+//     border: $inputBorderWidth solid grey
+//     //font-size: 18px
+//     text-align: center
+//   &[type="checkbox"] + label:after, &[type="radio"] + label:after
+//     content: ''
+//     background-color: $thecolor
+//     position: absolute
+//     top: 50%
+//     left: $inputBorderWidth + $inputActiveScale/2
+//     width: $inputWidth - $inputActiveScale
+//     height: $inputHeight -$inputActiveScale
+//     margin-top: -(($inputHeight - $inputActiveScale)/2)
+//     transform: scale(0)
+//     transform-origin: 50%
+//     transition: transform 200ms ease-out
+//   &[type="checkbox"] + label:after
+//     background-color: transparent
+//     top: 50%
+//     left: 3px
+//     width: 10px
+//     height: 7px
+//     margin-top: -5px
+//     border-style: solid
+//     border-color: $thecolor
+//     border-width: 0 0 3px 3px
+//     border-image: none
+//     transform: rotate(-45deg) scale(0)
+//     transition: none
+//     &:checked + label:after
+//       content: "" //\2713
+//       transform: rotate(-45deg) scale(1)
+//       transition: transform 200ms ease-out
+//     &:checked + label.indeterminate:after
+//       border-width: 0 0 3px 0px
+//       transform: translate(0px,0px)
+//   &[type="radio"]
+//     &:checked + label
+//       &:before
+//         animation: borderscale 300ms ease-in
+//         background-color: white
+//       &:after
+//         transform: scale(1)
+//     + label
+//       &:before, &:after
+//         border-radius: 50%
+//   &[type="checkbox"]
+//     &:checked
+//       + label
+//         &:before
+//           animation: borderscale 200ms ease-in
+//         &:after
+//           transform: rotate(-45deg) scale(1)
+//       + label.indeterminate
+//         &:after
+//           border-width: 0 0 3px 0px
+//           transform: translate(0px,0px)
+// @keyframes borderscale
+//   50%
+//     box-shadow: 0 0 0 2px $thecolor
+

@@ -1,0 +1,87 @@
+.material-tooltip {
+  padding: 10px 8px;
+  font-size: 1rem;
+  z-index: 2000;
+  background-color: transparent;
+  border-radius: 2px;
+  color: #fff;
+  min-height: 36px;
+  line-height: 120%;
+  opacity: 0;
+  position: absolute;
+  text-align: center;
+  max-width: calc(100% - 4px);
+  overflow: hidden;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transition: .3s;
+}
+.chartBox{
+  width: 100%;
+  height: 100%;
+}
+.chartPlace{
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+circle, polygon {
+  transition: fill 1s, fill-opacity 1s;
+  cursor: pointer;
+}
+.chart-tooltip {
+  position: fixed;
+  // left: 0px;
+  // top: 0px;
+  background: transparent;
+  box-shadow: 0 0 1px #000;
+  display: none;
+  padding: 10px 8px;
+  min-width: 100px;
+  max-width: calc(100% - 4px);
+  font-size: 1rem;
+  color: #fff;
+  z-index: 2000;
+  border-radius: 2px;
+  color: #fff;
+  min-height: 36px;
+  line-height: 120%;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+  visibility: hidden;
+  transition: .3s;
+  > div{
+    letter-spacing: 1px;
+     margin: 3px auto;
+  }
+  .label{
+    font-weight: 600;
+    margin-right: 5px;
+    display: inline-block;
+  }
+  .value{
+    font-weight: 400;
+    display: inline-block;
+    color: #ffde67;
+  }
+  &.active{
+    visibility: visible;
+    opacity: 1;
+    display: block;
+    background-color: rgba(0, 0, 0, 0.75);
+  }
+ }
+.backdrop {
+  position: absolute;
+  opacity: 0;
+  height: 7px;
+  width: 14px;
+  border-radius: 0 0 50% 50%;
+  background-color: #323232;
+  z-index: -1;
+  transform-origin: 50% 0%;
+  visibility: hidden;
+}
