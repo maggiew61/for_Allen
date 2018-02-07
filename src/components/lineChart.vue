@@ -13,7 +13,7 @@ import * as d3 from 'd3';
 import color from '../js/colorset.js';
 
 export default {
-  name: 'lineChart',
+  // name: 'lineChart',
   data() {
     return {
       loading: false,
@@ -38,7 +38,7 @@ export default {
     title: String,
     data: {
       type: Array,
-      default() {
+      default() { //vue跟react的寫法 避免傳回空值會出錯
         return [];
       },
     },
@@ -119,7 +119,7 @@ export default {
   },
   methods: {
     init() {
-      this.el = d3.select(this.$refs[this.id]);
+      this.el = d3.select(this.$refs[this.id]);  //選哪個圖; this.id(代表bar或line等)
     },
     renderData() {
       const data = JSON.parse(JSON.stringify(this.data));
@@ -145,6 +145,7 @@ export default {
       const className = `.chartPlace[data-chart-id="${this.id}"]`;
       const width = BBRect.width; // 圖表大小
       const height = BBRect.height; // 圖表大小
+
       const chartData = this.chartData;
       const allAxis = this.allAxis;
       const padding = {
@@ -155,6 +156,10 @@ export default {
       };
       const regionWidth = width - padding.right - padding.left;
       const regionHeight = height - padding.top - padding.bottom;
+
+      // regionHeight2另外定義給x-axis的名稱來使用(原本是regionHeight)
+      const regionHeight2 = height - padding.top;
+
       const yAxisWidth = 55;
       const xAxisHeight = 45;
       function translation(x, y) {
@@ -209,7 +214,11 @@ export default {
         .attr('width', width)
         .attr('height', height);
       const g = svg.append('g')
-        .attr('transform', translation(((width - regionWidth) / 2) + yAxisWidth, ((height - regionHeight) / 2) - xAxisHeight));
+
+        //整個table最外層
+        // .attr('transform', translation(((width - regionWidth) / 2) + yAxisWidth, ((height - regionHeight) / 2) - xAxisHeight));
+        .attr('transform', translation(((width - regionWidth) / 2) + yAxisWidth, ((height - regionHeight2) / 2) - xAxisHeight));
+
       // legend
       if (this.config.legend) {
         const legend = legendSet.selectAll('li')
@@ -301,7 +310,11 @@ export default {
       g.append('text')
         .attr('class', 'axis axisUnit--x')
         .attr('text-anchor', 'middle')
-        .attr('transform', translation(regionWidth / 2, (regionHeight + xAxisHeight)))
+
+        //另外定義x-axis的名稱(原先是regionHeight)
+        // .attr('transform', translation(regionWidth / 2, (regionHeight + xAxisHeight)))
+        .attr('transform', translation(regionWidth / 2, (regionHeight2 + xAxisHeight)))
+
         .text(config.XaxisUnit);
       g.append('text')
         .attr('class', 'axis axisUnit--y')
@@ -423,16 +436,16 @@ export default {
         })
         .on('mousemove', (d) => {
           tooltip
-            .style('top', (d3.event.pageY + 10) + 'px')
-            .style('left', (d3.event.pageX + 10) + 'px');
-        });
+          .style('top', (d3.event.clientY + 10) + 'px')
+          .style('left', (d3.event.clientX + 10) + 'px');
+       });
     },
   },
 };
 
 </script>
 
-<style lang="scss" scrope>
+<style lang="scss" scoped>
   .chartBox {
     margin: 30px auto;
   }

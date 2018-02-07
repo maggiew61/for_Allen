@@ -17,7 +17,7 @@ import * as d3 from 'd3';
 import color from '../js/colorset.js';
 
 export default {
-  name: 'lineChart',
+  // name: 'lineChart',
   data() {
     return {
       chartData: [],
@@ -55,13 +55,14 @@ export default {
       }
       this.ColorSet = arr;
     },
-    getHighlight(d) {
+    getHighlight(d) { //click legend&show highlight
       if (this.highlight !== d || !this.highlight) {
         this.highlight = d;
       } else {
         this.highlight = '';
       }
       const obj = { highlight: this.highlight, colorSet: this.ColorSet };
+      console.log('obj is',obj)
       this.$emit('input', obj);
     },
   },
