@@ -7,7 +7,7 @@
         <div class="card">
           <div class="card-content">
             <header>
-              票價波動趨勢(data: 02/26~02/27; 航空公司:華信/立榮; 時間區間: 0700-0800)
+              票價波動趨勢(data: 02/26~02/27)
             </header>
             <div>
               <p>飛航日期:</p>
@@ -95,18 +95,24 @@ export default {
       filter2: [
           ["07:00~08:00", "07:00~08:00"],
           ["08:00~09:00", "08:00~09:00"],
-          ["09:00~10:00", "09:00~10:00"]
+          ["09:00~10:00", "09:00~10:00"],
+          ["10:00~11:00", "10:00~11:00"],
+          ["11:00~12:00", "11:00~12:00"],
+          ["12:00~13:00", "12:00~13:00"],
+          ["15:00~16:00", "15:00~16:00"]
       ],
       filter3: [
-          ["songshan_kinmen", "松山-金門"]
+          ["songshan_kinmen", "松山-金門"],
+          ["kinmen_songshan", "金門-松山"],
+          ["hualien_kaohsiung", "花蓮-高雄"],
       ],
       filter4: [
           ["fullfare", "全票"]
       ],
       company:"",
       interval:"",
-      flightInfo: "",
-      ticketType:"",
+      flightInfo: {label:"松山-金門",value:"songshan_kinmen"},
+      ticketType:{label:"全票",value:"fullfare"},
       highlight: '',
       changeData: '',
       atestd1: null,
@@ -122,9 +128,6 @@ export default {
       let dateCalc = this.$moment(info.start).subtract(2, 'days').format('YYYY-MM-DD');  //減兩天圖才顯示正確(待解)
       this.dateStart=dateCalc
       this.dateEnd = this.$moment(info.end).format('YYYY-MM-DD');
-
-      // this.dateStart="2018-02-26"
-      // this.dateEnd="2018-02-28"
     }
   },
   computed: {
@@ -193,22 +196,25 @@ export default {
       const names = this.hightLightOptions;  //幾家航空eg., ["華信航空", "立榮航空"]
       for (let i in names) { //跑幾家航空(圖上幾條線)
         const map = [];
-
         for (let j in xAxis) { //跑幾個時間區間, x軸用的e.g., 2018-02-26-12:50
-          let timeNew=this.data[names[i]][this.flightInfo.value][this.ticketType.value][xAxis[j]].meta.x
-          for (let k in timeNew){
-            //撈出價格, 用於y軸 e.g., 2276
-            const price = this.data[names[i]][this.flightInfo.value][this.ticketType.value][xAxis[j]].value[timeNew[k]]
-            const m = {};
 
-            //以下4個是d3的規範 畫圖要給的東西
-            m.axis = timeNew[k]; //每一個時間區間
-            m.value = price ? price[0] : 0;  //第一筆資料的值 e.g., 305133
-            m.info = price ? price[1] : [['無資料', '--']];  //用於 tooltip的資訊
-            m.name = names[i];  //航空名稱
-            map.push(m);
+          //處理有些航空公司沒有某段時間區間的值的問題
+          let xAxisValue = this.data[names[i]][this.flightInfo.value][this.ticketType.value][xAxis[j]]
+          let timeNew =xAxisValue? xAxisValue.meta.x:null
+
+            for (let k in timeNew){
+              //撈出價格, 用於y軸 e.g., 2276
+              const price = this.data[names[i]][this.flightInfo.value][this.ticketType.value][xAxis[j]].value[timeNew[k]]
+              const m = {};
+
+              //以下4個是d3的規範 畫圖要給的東西
+              m.axis = timeNew[k]; //每一個時間區間
+              m.value = price ? price[0] : 0;  //第一筆資料的值 e.g., 305133
+              m.info = price ? price[1] : [['無資料', '--']];  //用於 tooltip的資訊
+              m.name = names[i];  //航空名稱
+              map.push(m);
+            }
           }
-        }
         const o = {
           name: names[i],
           data: map,
